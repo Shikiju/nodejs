@@ -33,7 +33,7 @@ function start(route, handle) {
         }
         else {
           player2 = name;
-          socket.emit('ready');
+          io.sockets.emit('ready');
         }
       });
     });
