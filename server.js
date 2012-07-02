@@ -18,16 +18,16 @@ function start(route, handle) {
   //  });
     //});
   
-  var player1 = '',
-    player2 = '';
+  var player1 = null,
+    player2 = null;
   
 
   io.sockets.on('connection', function (socket) {
     io.sockets.emit('identify', { msg: 'Please send a nickname' });
 
-    socket.on('set nickname', function (name) {
+    socket.on('set nickname', function (name, fn) {
       socket.set('nickname', name, function () {
-        if (player1 == '') {
+        if (player1 == null) {
           player1 = name;
           socket.emit('waiting for players');
         }
@@ -35,6 +35,7 @@ function start(route, handle) {
           player2 = name;
           io.sockets.emit('ready');
         }
+        fn({player1: player1, player2: player2});
       });
     });
 
