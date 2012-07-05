@@ -39,12 +39,20 @@ function start(route, handle) {
       });
     });
 
-    socket.on('msg', function (msg) {
+    socket.on('msg', function (chatMessage) {
+      console.log('well at least im here!');
       socket.get('nickname', function (err, name) {
-        console.log('Position update from: ', name);
+        console.log('Chatmessage from ', name);
         console.log(msg);
       });
     });
+
+    //socket.on('msg', function (msg) {
+    //  socket.get('nickname', function (err, name) {
+    //    console.log('Position update from: ', name);
+    //    console.log(msg);
+    //  });
+    //});
 
     socket.on('disconnect', function () {
       io.sockets.emit('user disconnected');
